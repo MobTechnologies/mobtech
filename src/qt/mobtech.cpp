@@ -4,10 +4,10 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #if defined(HAVE_CONFIG_H)
-#include <config/bitcoin-config.h>
+#include <config/mobtech-config.h>
 #endif
 
-#include <qt/bitcoingui.h>
+#include <qt/mobtechgui.h>
 
 #include <chainparams.h>
 #include <qt/clientmodel.h>
@@ -85,7 +85,7 @@ static void InitMessage(const std::string &message)
  */
 static std::string Translate(const char* psz)
 {
-    return QCoreApplication::translate("bitcoin-core", psz).toStdString();
+    return QCoreApplication::translate("mobtech-core", psz).toStdString();
 }
 
 static QString GetLangTerritory()
@@ -245,7 +245,7 @@ private:
     void startThread();
 };
 
-#include <qt/bitcoin.moc>
+#include <qt/mobtech.moc>
 
 BitcoinCore::BitcoinCore(interfaces::Node& node) :
     QObject(), m_node(node)
@@ -566,8 +566,8 @@ int main(int argc, char *argv[])
     // Do not refer to data directory yet, this can be overridden by Intro::pickDataDirectory
 
     /// 1. Basic Qt initialization (not dependent on parameters or configuration)
-    Q_INIT_RESOURCE(bitcoin);
-    Q_INIT_RESOURCE(bitcoin_locale);
+    Q_INIT_RESOURCE(mobtech);
+    Q_INIT_RESOURCE(mobtech_locale);
 
     BitcoinApplication app(*node, argc, argv);
 #if QT_VERSION > 0x050100
