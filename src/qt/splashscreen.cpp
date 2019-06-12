@@ -30,32 +30,29 @@ SplashScreen::SplashScreen(interfaces::Node& node, Qt::WindowFlags f, const Netw
     setWindowFlags(Qt::FramelessWindowHint| Qt::WindowSystemMenuHint);
 
     // set reference point, paddings
-    int paddingLeft = 14;
-    int paddingTop = 410;
-    int titleCopyrightVSpace = 32;
     float fontFactor = 1.0;
     float devicePixelRatio = 1.0;
     QString font = QApplication::font().toString();
 
     // define text to place
-    QString copyrightTextBTC   = QChar(0xA9) + QString("2009 ") + QString(tr("The Bitcoin developers"));
-    QString copyrightTextMOB   = QChar(0xA9) + QString("2019 ") + QString(tr("The Mobile Techologies developers"));
     QString titleAddText = networkStyle->getTitleAddText();
 
     // create a bitmap according to device pixelratio
-    QSize splashSize(519*devicePixelRatio,519*devicePixelRatio);
+    QSize splashSize(478*devicePixelRatio,538*devicePixelRatio);
     pixmap = QPixmap(splashSize);
     QPainter pixPaint(&pixmap);
     pixPaint.setPen(QColor(100,100,100));
-    QRect rectIcon(QPoint(10,0), QSize(519,519));
-    const QSize requiredSize(519,519);
-    QPixmap icon(networkStyle->getAppIcon().pixmap(requiredSize));
-    pixPaint.drawPixmap(rectIcon, icon);
 
-    // copyright information
-    pixPaint.setFont(QFont(font, 8 * fontFactor));
-    pixPaint.drawText(paddingLeft, paddingTop + titleCopyrightVSpace, copyrightTextBTC);
-    pixPaint.drawText(paddingLeft, paddingTop + titleCopyrightVSpace + 12, copyrightTextMOB);
+    // draw a slightly radial gradient
+    QRect rectIcon(QPoint(0,0), QSize(478,538));
+    const QSize requiredSize(478,538);
+    QPixmap icon(networkStyle->getAppIcon().pixmap(requiredSize));
+    QRadialGradient gradient(QPoint(0,0), splashSize.width()/devicePixelRatio);
+    gradient.setColorAt(0, Qt::white);
+    gradient.setColorAt(1, QColor(247,247,247));
+    QRect rGradient(QPoint(0,0), splashSize);
+    pixPaint.fillRect(rGradient, gradient);
+    pixPaint.drawPixmap(rectIcon, icon);
 
     // draw additional text if special network
     if (!titleAddText.isEmpty()) {

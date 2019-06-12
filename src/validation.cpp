@@ -1140,16 +1140,23 @@ bool ReadBlockFromDisk(CBlock& block, const CBlockIndex* pindex, const Consensus
     return true;
 }
 
-CAmount GetBlockSubsidy(int nPrevHeight, const Consensus::Params& consensusParams, bool fSuperblockPartOnly)
+CAmount GetBlockSubsidy(int nHeight, const Consensus::Params& consensusParams, bool fSuperblockPartOnly)
 {
-    CAmount nSubsidy = 1000 * COIN;
+        CAmount nSubsidy = 25000 * COIN;
 
-    return nSubsidy;
+        if (nHeight < 2000)   { nSubsidy = 1000 * COIN; return nSubsidy; }
+        if (nHeight < 15000)  { nSubsidy /= 30000; nSubsidy *= nHeight; return nSubsidy; }
+        if (nHeight < 30000)  { nSubsidy /= 30000; nSubsidy *= (nHeight+1); return nSubsidy; }
+        if (nHeight < 50000)  { nSubsidy *= 30000; nSubsidy /= nHeight; return nSubsidy; }
+        if (nHeight < 100000) { nSubsidy *= 50000; nSubsidy /= (nHeight*1.5); return nSubsidy; }
+
+        CAmount nRapidDecay = 5000 - (nHeight - 100000);
+        return nRapidDecay < 1000 ? 1000 * COIN : nRapidDecay * COIN;
 }
 
 CAmount GetMasternodePayment(int nHeight, CAmount blockValue)
 {
-    return blockValue * 0.0;
+    return blockValue * 0.8;
 }
 
 bool IsInitialBlockDownload()
@@ -1845,6 +1852,11 @@ bool CChainState::ConnectBlock(const CBlock& block, CValidationState& state, CBl
         if (!fJustCheck)
             view.SetBestBlock(pindex->GetBlockHash());
         return true;
+    }
+
+    // End of PoW
+    if (pindex->nHeight > Params().GetConsensus().nFirstPoSBlock && block.IsProofOfWork()) {
+        return state.DoS(100, error("ConnectBlock() : PoW period ended"), REJECT_INVALID, "PoW-ended");
     }
 
     nBlocksTotal++;
