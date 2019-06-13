@@ -1,0 +1,20 @@
+<!DOCTYPE RCC><RCC version="1.0">
+    <qresource prefix="/translations">
+        <file alias="bg">locale/mobtech_bg.qm</file>
+        <file alias="de">locale/mobtech_de.qm</file>
+        <file alias="en">locale/mobtech_en.qm</file>
+        <file alias="es">locale/mobtech_es.qm</file>
+        <file alias="fi">locale/mobtech_fi.qm</file>
+        <file alias="fr">locale/mobtech_fr.qm</file>
+        <file alias="it">locale/mobtech_it.qm</file>
+        <file alias="ja">locale/mobtech_ja.qm</file>
+        <file alias="pl">locale/mobtech_pl.qm</file>
+        <file alias="pt">locale/mobtech_pt.qm</file>
+        <file alias="ru">locale/mobtech_ru.qm</file>
+        <file alias="sk">locale/mobtech_sk.qm</file>
+        <file alias="sv">locale/mobtech_sv.qm</file>
+        <file alias="vi">locale/mobtech_vi.qm</file>
+        <file alias="zh_CN">locale/mobtech_zh_CN.qm</file>
+        <file alias="zh_TW">locale/mobtech_zh_TW.qm</file>
+    </qresource>
+</RCC>
