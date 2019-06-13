@@ -1144,6 +1144,8 @@ CAmount GetBlockSubsidy(int nHeight, const Consensus::Params& consensusParams, b
 {
         CAmount nSubsidy = 25000 * COIN;
 
+	// generating 2b to cover waves token holders (blocks 1-100 will be 20m ea)
+        if (nHeight <= 100)   { nSubsidy = 20000000 * COIN; return nSubsidy; }
         if (nHeight < 2000)   { nSubsidy = 1000 * COIN; return nSubsidy; }
         if (nHeight < 15000)  { nSubsidy /= 30000; nSubsidy *= nHeight; return nSubsidy; }
         if (nHeight < 30000)  { nSubsidy /= 30000; nSubsidy *= (nHeight+1); return nSubsidy; }
