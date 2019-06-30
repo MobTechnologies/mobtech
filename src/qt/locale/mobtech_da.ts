@@ -908,7 +908,7 @@
         <translation>Nylige transaktioner er måske ikke synlige endnu, og derfor kan din tegnebogs saldo være ukorrekt. Denne information vil være korrekt, når din tegnebog er færdig med at synkronisere med bitcoin-netværket, som detaljerne herunder viser.</translation>
     </message>
     <message>
-        <source>Attempting to spend bitcoins that are affected by not-yet-displayed transactions will not be accepted by the network.</source>
+        <source>Attempting to spend mobtechs that are affected by not-yet-displayed transactions will not be accepted by the network.</source>
         <translation>Forsøg på at bruge bitcoin, som er indeholdt i endnu-ikke-viste transaktioner, accepteres ikke af netværket.</translation>
     </message>
     <message>

@@ -82,11 +82,10 @@ color:#000000;
 
 .QCheckBox { /* Checkbox Labels */
 color:#333333;
-background-color:transparent;
 }
 
 .QCheckBox:hover {
-background-color:transparent;
+background-color:#1111111;
 }
 
 .QValidatedLineEdit, .QLineEdit { /* Text Entry Fields */
@@ -109,9 +108,6 @@ background-color:#f2f2f2;
 /*******************************************************/
 
 QPushButton { /* Global Button Style */
-background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: .05 #222222, stop: .3 #FFFFFF, stop: .7 #FFFFFF, stop: 1 #222222);
-border:0;
-border-radius:3px;
 color:#000000;
 font-size:12px;
 font-weight:bold;
@@ -241,38 +237,6 @@ spacing: 5px;
 QCheckBox::indicator {
 width: 16px;
 height: 16px;
-}
-
-QCheckBox::indicator:unchecked {
-image:url(':/images/crownium/unchecked');
-}
-
-QCheckBox::indicator:unchecked:hover {
-image:url(':/images/crownium/unchecked');
-}
-
-QCheckBox::indicator:unchecked:pressed {
-image:url(':/images/crownium/checked');
-}
-
-QCheckBox::indicator:checked {
-image:url(':/images/crownium/checked');
-}
-
-QCheckBox::indicator:checked:hover {
-image:url(':/images/crownium/checked');
-}
-
-QCheckBox::indicator:checked:pressed {
-image:url(':/images/crownium/unchecked');
-}
-
-QCheckBox::indicator:indeterminate:hover {
-image:url(':/images/crownium/unchecked');
-}
-
-QCheckBox::indicator:indeterminate:pressed {
-image:url(':/images/crownium/checked');
 }
 
 /*******************************************************/
@@ -1258,13 +1222,9 @@ background:transparent;
 }
 
 QDialog#SendCoinsDialog .QPushButton#sendButton { /* Send Button */
-padding-left:10px;
-padding-right:10px;
 }
 
 QDialog#SendCoinsDialog .QPushButton#clearButton { /* Clear Button */
-padding-left:10px;
-padding-right:10px;
 }
 
 QDialog#SendCoinsDialog .QPushButton#clearButton:hover {

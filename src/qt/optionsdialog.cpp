@@ -40,14 +40,8 @@ OptionsDialog::OptionsDialog(QWidget *parent, bool enableWallet) :
     static const uint64_t GiB = 1024 * 1024 * 1024;
     static const uint64_t nMinDiskSpace = MIN_DISK_SPACE_FOR_BLOCK_FILES / GiB +
                           (MIN_DISK_SPACE_FOR_BLOCK_FILES % GiB) ? 1 : 0;
-    ui->pruneSize->setMinimum(nMinDiskSpace);
     ui->threadsScriptVerif->setMinimum(-GetNumCores());
     ui->threadsScriptVerif->setMaximum(MAX_SCRIPTCHECK_THREADS);
-    ui->pruneWarning->setVisible(false);
-    ui->pruneWarning->setStyleSheet("QLabel { color: red; }");
-
-    ui->pruneSize->setEnabled(false);
-    connect(ui->prune, SIGNAL(toggled(bool)), ui->pruneSize, SLOT(setEnabled(bool)));
 
     /* Network elements init */
 #ifndef USE_UPNP
@@ -83,11 +77,6 @@ OptionsDialog::OptionsDialog(QWidget *parent, bool enableWallet) :
 
     /* Display elements init */
     QDir translations(":translations");
-
-    ui->bitcoinAtStartup->setToolTip(ui->bitcoinAtStartup->toolTip().arg(tr(PACKAGE_NAME)));
-    ui->bitcoinAtStartup->setText(ui->bitcoinAtStartup->text().arg(tr(PACKAGE_NAME)));
-
-    ui->openBitcoinConfButton->setToolTip(ui->openBitcoinConfButton->toolTip().arg(tr(PACKAGE_NAME)));
 
     ui->lang->setToolTip(ui->lang->toolTip().arg(tr(PACKAGE_NAME)));
     ui->lang->addItem(QString("(") + tr("default") + QString(")"), QVariant(""));
@@ -159,9 +148,6 @@ void OptionsDialog::setModel(OptionsModel *_model)
     /* warn when one of the following settings changes by user action (placed here so init via mapper doesn't trigger them) */
 
     /* Main */
-    connect(ui->prune, SIGNAL(clicked(bool)), this, SLOT(showRestartWarning()));
-    connect(ui->prune, SIGNAL(clicked(bool)), this, SLOT(togglePruneWarning(bool)));
-    connect(ui->pruneSize, SIGNAL(valueChanged(int)), this, SLOT(showRestartWarning()));
     connect(ui->databaseCache, SIGNAL(valueChanged(int)), this, SLOT(showRestartWarning()));
     connect(ui->threadsScriptVerif, SIGNAL(valueChanged(int)), this, SLOT(showRestartWarning()));
     /* Wallet */
@@ -178,11 +164,8 @@ void OptionsDialog::setModel(OptionsModel *_model)
 void OptionsDialog::setMapper()
 {
     /* Main */
-    mapper->addMapping(ui->bitcoinAtStartup, OptionsModel::StartAtStartup);
     mapper->addMapping(ui->threadsScriptVerif, OptionsModel::ThreadsScriptVerif);
     mapper->addMapping(ui->databaseCache, OptionsModel::DatabaseCache);
-    mapper->addMapping(ui->prune, OptionsModel::Prune);
-    mapper->addMapping(ui->pruneSize, OptionsModel::PruneSize);
 
     /* Wallet */
     mapper->addMapping(ui->spendZeroConfChange, OptionsModel::SpendZeroConfChange);
@@ -271,11 +254,6 @@ void OptionsDialog::on_hideTrayIcon_stateChanged(int fState)
     {
         ui->minimizeToTray->setEnabled(true);
     }
-}
-
-void OptionsDialog::togglePruneWarning(bool enabled)
-{
-    ui->pruneWarning->setVisible(!ui->pruneWarning->isVisible());
 }
 
 void OptionsDialog::showRestartWarning(bool fPersistent)
